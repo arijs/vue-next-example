@@ -1,0 +1,28 @@
+{
+	"name": "vue-next-example",
+	"version": "1.0.0",
+	"description": "Vue 3 example with vue-router without using any transpiler",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node task/localhost.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/arijs/vue-next-example.git"
+	},
+	"keywords": [
+		"vue",
+		"vue-router",
+		"vue-next"
+	],
+	"author": "Rafael Hengles <rhengles@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/arijs/vue-next-example/issues"
+	},
+	"homepage": "https://github.com/arijs/vue-next-example#readme",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
+}
