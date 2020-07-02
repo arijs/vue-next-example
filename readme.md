@@ -7,6 +7,8 @@ Your application code is not compiled at all, you save and reload your browser l
 ## How to run
 
 ```
+npm install
+
 npm start
 ```
 
