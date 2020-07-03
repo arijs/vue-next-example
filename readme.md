@@ -14,3 +14,6 @@ npm start
 
 And open your browser on http://localhost:8070
 
+## License
+
+[MIT](LICENSE).
