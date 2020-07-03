@@ -6140,8 +6140,10 @@ var Vue = (function (exports) {
   }
   function getLazyAssetKey(type) {
       switch (type) {
-          case COMPONENTS: return COMPONENT_LAZY;
-          case DIRECTIVES: return DIRECTIVE_LAZY;
+          case COMPONENTS:
+              return COMPONENT_LAZY;
+          case DIRECTIVES:
+              return DIRECTIVE_LAZY;
       }
   }
   // implementation
@@ -10583,7 +10585,7 @@ var Vue = (function (exports) {
           source = { loader: source };
       }
       const { loader, loadingComponent: loadingComponent, errorComponent: errorComponent, delay = 200, timeout, // undefined = never times out
-      suspensible = true, onError: userOnError } = source;
+      suspensible = true, onError: userOnError, getComponent, getDirective, } = source;
       let pendingRequest = null;
       let resolvedComp;
       let retries = 0;
@@ -10632,6 +10634,8 @@ var Vue = (function (exports) {
       return defineComponent({
           __asyncLoader: load,
           name: 'AsyncComponentWrapper',
+          getComponent,
+          getDirective,
           setup() {
               const instance = currentInstance;
               // already resolved

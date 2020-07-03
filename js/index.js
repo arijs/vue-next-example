@@ -5,7 +5,8 @@ var Comp = {
 	loader: prefixMatcher({
 		prefix: 'app--',
 		basePath: '/comp/',
-		getJsData: function(match) {return Comp.map[match.path];}
+		getJsData: function(match) {return Comp.map[match.path];},
+		getComponent: getComponent
 	})
 };
 
@@ -14,14 +15,18 @@ var Page = {
 	loader: prefixMatcher({
 		prefix: 'page--',
 		basePath: '/page/',
-		getJsData: function(match) {return Page.map[match.path];}
+		getJsData: function(match) {return Page.map[match.path];},
+		getComponent: getComponent
 	})
 };
 
 function getComponent(sp) {
 	sp = sp.hyphenated;
 	var prom = Comp.loader(sp) || Page.loader(sp);
-	return prom && Vue.defineAsyncComponent(prom);
+	return prom && Vue.defineAsyncComponent({
+		loader: prom,
+		getComponent: getComponent
+	});
 }
 
 var root = Vue.createApp(getComponent({ hyphenated: 'app--root' }));

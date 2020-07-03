@@ -120,6 +120,7 @@ function compSetResult(load, cb) {
 	var js = load.js.data;
 	var html = load.html.data;
 	js.template = html;
+	js.getComponent = load.optMatch.getComponent;
 	cb({data: js});
 }
 
@@ -139,6 +140,8 @@ function getPrefixPaths(optPrefix, match) {
 	var lastName = path.substr(lastIndex+1);
 	var href = basePath+path+'/'+lastName;
 	var id = prefix.replace(reDash,'/')+path;
+	optPrefix.mapCache = optPrefix.mapCache || {};
+	optPrefix.mapLoading = optPrefix.mapLoading || {};
 	extend(match, optPrefix);
 	match.id = id;
 	match.href = href;
@@ -148,8 +151,6 @@ function getPrefixPaths(optPrefix, match) {
 	match.pathJs   = compPathResource(pathJs  , match, extJs  );
 	match.pathCss  = compPathResource(pathCss , match, extCss );
 	match.setResult = optPrefix.setResult || compSetResult;
-	match.mapCache = match.mapCache || {};
-	match.mapLoading = match.mapLoading || {};
 	return match;
 }
 
