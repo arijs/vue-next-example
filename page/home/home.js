@@ -1,8 +1,8 @@
-!function(compMap) { compMap['pages/home'] = {
+!function(global) { global.Page.map['home'] = {
 	template: null,
 	setup: function() {
-		var router = compMap._router;
-		var users = compMap._users;
+		var router = global.router;
+		var users = global.users;
 		var modal = Vue.ref();
 		var route = VueRouter.useRoute();
 		var historyState = Vue.computed(function() {
@@ -45,4 +45,4 @@
 			history.back();
 		}
 	}
-}; }(AppComp);
+}; }(_app$);

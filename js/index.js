@@ -1,26 +1,40 @@
+var _app$ = function() {
 
-var AppComp = {};
-
-var appLoader = prefixMatcher({
-	prefix: 'app--',
-	basePath: '/comp/',
-	getJsData: function(match) {return AppComp[match.path];}
-});
-
-var _shift$ = {
-	root: null,
-	getComponent: function(sp) {
-		var prom = appLoader(sp.hyphenated);
-		return prom && Vue.defineAsyncComponent(prom);
-	}
+var Comp = {
+	map: {},
+	loader: prefixMatcher({
+		prefix: 'app--',
+		basePath: '/comp/',
+		getJsData: function(match) {return Comp.map[match.path];}
+	})
 };
 
-appLoader('app--root')()
-.then(function(comp) {
-	comp.getComponent = _shift$.getComponent;
-	_shift$.root = Vue.createApp(comp);
-	_shift$.root.mount('#root');
-})
-.catch(function(err, load) {
-	console.error('Error loading root component', err, load);
-});
+var Page = {
+	map: {},
+	loader: prefixMatcher({
+		prefix: 'page--',
+		basePath: '/page/',
+		getJsData: function(match) {return Page.map[match.path];}
+	})
+};
+
+function getComponent(sp) {
+	sp = sp.hyphenated;
+	var prom = Comp.loader(sp) || Page.loader(sp);
+	return prom && Vue.defineAsyncComponent(prom);
+}
+
+var root = Vue.createApp(getComponent({ hyphenated: 'app--root' }));
+
+var global = {
+	root: root,
+	Comp: Comp,
+	Page: Page,
+	getComponent: getComponent
+};
+
+return global;
+
+}();
+
+_app$.root.mount('#root');

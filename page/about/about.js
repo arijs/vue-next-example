@@ -1,4 +1,4 @@
-!function(compMap) { compMap['pages/about'] = {
+!function(global) { global.Page.map['about'] = {
 	template: null,
 	setup: function() {
 		return {};
@@ -8,4 +8,4 @@
 			history.back();
 		}
 	}
-}; }(AppComp);
+}; }(_app$);

@@ -7,6 +7,7 @@ function AjaxError(message, xhr, error) {
 	this.stack = (new Error()).stack;
 }
 AjaxError.prototype = new Error;
+AjaxError.prototype.constructor = AjaxError;
 
 function loadScript(url, cb) {
 	var script = document.createElement('script');

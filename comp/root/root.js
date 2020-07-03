@@ -1,8 +1,9 @@
-!function(compMap) {
+!function(global) {
 
-compMap['root'] = {
+global.Comp.map['root'] = {
 	template: null,
 	setup: function() {
+		initUsers();
 		var router = initRouter();
 		var route = VueRouter.useRoute();
 		var historyState = Vue.computed(function() {
@@ -25,13 +26,24 @@ compMap['root'] = {
 };
 
 function component(name) {
-	return _shift$.getComponent({ hyphenated: name.replace(/\/+/g,'--') });
+	return global.getComponent({ hyphenated: name.replace(/\/+/g,'--') });
 }
 function page(name) {
-	return component('app/pages/'+name);
+	return component('page/'+name);
+}
+function initUsers() {
+	var users = global.users;
+	if (users) return users;
+	users = Vue.readonly([
+		{ name: 'John' },
+		{ name: 'Jessica' },
+		{ name: 'James' },
+	]);
+	global.users = users;
+	return users;
 }
 function initRouter() {
-	var router = compMap._router;
+	var router = global.router;
 	if (router) return router;
 	var webHistory = VueRouter.createWebHistory('/');
 	router = VueRouter.createRouter({
@@ -43,16 +55,10 @@ function initRouter() {
 		]
 	});
 
-	_shift$.root.use(router);
-	compMap._router = router;
+	global.root.use(router);
+	global.router = router;
 
-	var users = Vue.readonly([
-		{ name: 'John' },
-		{ name: 'Jessica' },
-		{ name: 'James' },
-	]);
-	compMap._users = users;
 	return router;
 }
 
-}(AppComp);
+}(_app$);
