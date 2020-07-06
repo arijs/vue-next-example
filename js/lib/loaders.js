@@ -87,7 +87,9 @@ function loadAjaxParseType(resp) {
 function loadAjaxParseExpectType(resp) {
 	var type = resp.opt.type;
 	if (type) {
-		if (!type.test(resp)) {
+		if (type.test(resp)) {
+			type.parse(resp);
+		} else {
 			var tl = type.tl || loadAjaxMessages['error-unexpected-type'];
 			resp.errorParse = new AjaxError(tl.title, resp.req, {message: tl.message});
 		}
