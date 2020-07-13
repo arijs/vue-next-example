@@ -1,45 +1,38 @@
-var _app$ = function() {
+!function(global) {
 
-var Comp = {
+var Comp = global.Comp = {
 	map: {},
 	loader: prefixMatcher({
 		prefix: 'app--',
 		basePath: '/comp/',
-		getJsData: function(match) {return Comp.map[match.path];},
-		getComponent: getComponent
+		getJsData: function(match) {return Comp.map[match.path];}
 	})
 };
 
-var Page = {
+var Page = global.Page = {
 	map: {},
 	loader: prefixMatcher({
 		prefix: 'page--',
 		basePath: '/page/',
-		getJsData: function(match) {return Page.map[match.path];},
-		getComponent: getComponent
+		getJsData: function(match) {return Page.map[match.path];}
 	})
 };
 
-function getComponent(sp) {
-	sp = sp.hyphenated;
-	var prom = Comp.loader(sp) || Page.loader(sp);
-	return prom && Vue.defineAsyncComponent({
-		loader: prom,
-		getComponent: getComponent
-	});
-}
+var originalResolveComponent = Vue.resolveComponent;
 
-var root = Vue.createApp(getComponent({ hyphenated: 'app--root' }));
-
-var global = {
-	root: root,
-	Comp: Comp,
-	Page: Page,
-	getComponent: getComponent
+Vue.resolveComponent = function(name) {
+	// console.log('ResolveComponent', name);
+	var prom = Comp.loader(name)
+		|| Page.loader(name);
+	if (prom) {
+		return Vue.defineAsyncComponent(prom);
+	} else {
+		return originalResolveComponent.apply(this, arguments);
+	}
 };
 
-return global;
+var root = global.root = Vue.createApp(Vue.resolveComponent('app--root'));
 
-}();
+root.mount('#root');
 
-_app$.root.mount('#root');
+}(_app$);

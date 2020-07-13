@@ -4,7 +4,8 @@ global.Comp.map['root'] = {
 	template: null,
 	setup: function() {
 		initUsers();
-		var router = initRouter();
+		global.routerInit();
+		var router = global.router;
 		var route = VueRouter.useRoute();
 		var historyState = Vue.computed(function() {
 			return route.fullPath && window.history.state
@@ -25,12 +26,6 @@ global.Comp.map['root'] = {
 	}
 };
 
-function component(name) {
-	return global.getComponent({ hyphenated: name.replace(/\/+/g,'--') });
-}
-function page(name) {
-	return component('page/'+name);
-}
 function initUsers() {
 	var users = global.users;
 	if (users) return users;
@@ -41,24 +36,6 @@ function initUsers() {
 	]);
 	global.users = users;
 	return users;
-}
-function initRouter() {
-	var router = global.router;
-	if (router) return router;
-	var webHistory = VueRouter.createWebHistory('/');
-	router = VueRouter.createRouter({
-		history: webHistory,
-		routes: [
-			{ path: '/', exact: true, component: page('home') },
-			{ path: '/about', component: page('about') },
-			{ path: '/users/:id', props: true, name: 'user', component: page('user/details') }
-		]
-	});
-
-	global.root.use(router);
-	global.router = router;
-
-	return router;
 }
 
 }(_app$);
