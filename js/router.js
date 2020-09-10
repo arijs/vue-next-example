@@ -9,9 +9,10 @@ function page(name) {
 
 function initRouter() {
 
-var webHistory = VueRouter.createWebHistory('/');
-router = VueRouter.createRouter({
-	history: webHistory,
+// var webHistory = VueRouter.createWebHistory('/');
+
+var router = VueRouter.createRouter({
+	history: global.routerHistory,
 	routes: [
 		{ path: '/', exact: true, component: page('home') },
 		{ path: '/about', component: page('about') },
@@ -19,19 +20,16 @@ router = VueRouter.createRouter({
 	]
 });
 
-global.root.use(router);
-global.router = router;
+// router.beforeEach(function(to, from, next) {
+// 	// handle as necessary
+// 	return next();
+// });
 
-router.beforeEach(function(to, from, next) {
-	// handle as necessary
-	return next();
-});
-
-global.root.use(router);
+// global.root.use(router);
 global.router = router;
 
 }
 
-global.routerInit = initRouter;
+global.initRouter = initRouter;
 
 }(_app$);

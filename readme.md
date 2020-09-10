@@ -100,6 +100,14 @@ npm start
 
 And open your browser on http://localhost:8070
 
+## Prerendering
+
+Pages and Components can be prerendered to a HTML string with Vue Server Renderer.
+
+```
+npm run prerender
+```
+
 ## License
 
 [MIT](LICENSE).

@@ -169,6 +169,15 @@ function loadAjax(opt) {
 	return resp;
 };
 
+function loadAjaxRespHeaders(req) {
+	req = req.getAllResponseHeaders();
+	var mat, rh = /(.*?):\s*(.*)/g, map = {};
+	while (mat = rh.exec(hs)) {
+		map[mat[1]] = mat[2];
+	}
+	return map;
+}
+
 loadAjax.types = {
 	json: {
 		test: function(resp) {

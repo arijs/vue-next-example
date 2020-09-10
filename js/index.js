@@ -31,7 +31,17 @@ Vue.resolveComponent = function(name) {
 	}
 };
 
+global.getHistoryState = function(route) {
+	return route.fullPath && window.history.state;
+};
+
+global.routerHistory = VueRouter.createWebHistory('/');
+
+global.initRouter();
+
 var root = global.root = Vue.createApp(Vue.resolveComponent('app--root'));
+
+root.use(global.router);
 
 root.mount('#root');
 

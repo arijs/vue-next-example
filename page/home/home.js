@@ -30,7 +30,8 @@
 			showUserModal: showUserModal,
 			closeUserModal: closeUserModal,
 			userId: userId,
-			users: users
+			users: users,
+			usersLoad: global.usersLoad
 		};
 		function showUserModal(id) {
 			// add backgroundView state to the location so we can render a different view from the one

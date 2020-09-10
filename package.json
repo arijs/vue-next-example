@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node task/localhost.js"
+		"start": "node task/localhost.js",
+		"prerender": "node task/prerender.js"
 	},
 	"repository": {
 		"type": "git",
@@ -23,6 +24,9 @@
 	},
 	"homepage": "https://github.com/arijs/vue-next-example#readme",
 	"dependencies": {
-		"express": "^4.17.1"
+		"@vue/server-renderer": "^3.0.0-rc.10",
+		"express": "^4.17.1",
+		"vue": "^3.0.0-rc.10",
+		"vue-router": "^4.0.0-beta.9"
 	}
 }

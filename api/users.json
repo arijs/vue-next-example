@@ -1,0 +1,8 @@
+{
+	"success": true,
+	"data": [
+		{ "name": "John", "age": 27 },
+		{ "name": "Jessica", "age": 31 },
+		{ "name": "James", "age": 40 }
+	]
+}

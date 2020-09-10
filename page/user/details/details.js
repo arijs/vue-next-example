@@ -1,9 +1,10 @@
 !function(global) { global.Page.map['user/details'] = {
 	template: null,
 	props: ['id'],
-	data: function() {
+	setup: function() {
 		return {
-			users: global.users
+			users: global.users,
+			usersLoad: global.usersLoad
 		};
 	}
 }; }(_app$);
