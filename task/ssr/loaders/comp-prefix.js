@@ -84,7 +84,7 @@ function prefixLoader(match) {
 		} else {
 			mapCache[path] = def.promise;
 			def.resolve(load.comp.data);//, load);
-			console.log('/** prefix comp loaded **/', load.comp.data);
+			console.log('/** prefix comp loaded **/', match.id || path);
 		}
 	};
 	loadComponent(match);
