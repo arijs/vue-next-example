@@ -24,7 +24,7 @@
 	},
 	"homepage": "https://github.com/arijs/vue-next-example#readme",
 	"dependencies": {
-		"@arijs/stream-xml-parser": "^0.1.5",
+		"@arijs/stream-xml-parser": "^0.1.6",
 		"@vue/server-renderer": "^3.0.0-rc.10",
 		"express": "^4.17.1",
 		"vue": "^3.0.0-rc.10",

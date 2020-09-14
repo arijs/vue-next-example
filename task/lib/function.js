@@ -34,11 +34,12 @@ exports.forEach = function forEach(list, cb, result) {
 }
 
 exports.forEachProperty = function forEachProperty(obj, cb) {
+	var hop = Object.prototype.hasOwnProperty;
 	var _break = 1 << 0;
-	var i = 0;
 	var ctx = {
 		_break: _break
 	};
+	var i = 0;
 	var ret;
 	for ( var k in obj ) {
 		if ( !hop.call(obj, k) ) continue;

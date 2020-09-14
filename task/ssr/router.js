@@ -3,7 +3,7 @@ const Vue = require('vue')
 const prefixMatcher = require('./loaders/comp-prefix')
 const loadScriptQueue = require('./loaders/script-queue');
 const services = require('./services');
-const {forEach} = require('../lib/function');
+const {forEach, forEachProperty} = require('../lib/function');
 const {
 	renderToString,
 	// ssrInterpolate,
@@ -28,8 +28,12 @@ var Comp = global.Comp = {
 		prefix: 'app--',
 		basePath: 'comp/',
 		jsCtx: ctx,
+		waitCss: true,
 		getJsData: function(match) {return Comp.map[match.path];},
-		onCssData: function(data, match) {Comp.mapCss[match.path] = data;}
+		onCssData: function(data, match) {Comp.mapCss[match.path] = {
+			match: match,
+			data: data
+		};}
 	})
 };
 
@@ -42,8 +46,12 @@ var Page = global.Page = {
 		prefix: 'page--',
 		basePath: 'page/',
 		jsCtx: ctx,
+		waitCss: true,
 		getJsData: function(match) {return Page.map[match.path];},
-		onCssData: function(data, match) {Page.mapCss[match.path] = data;}
+		onCssData: function(data, match) {Page.mapCss[match.path] = {
+			match: match,
+			data: data
+		};}
 	})
 };
 
@@ -56,8 +64,12 @@ var Block = global.Block = {
 		prefix: 'block--',
 		basePath: 'block/',
 		jsCtx: ctx,
+		waitCss: true,
 		getJsData: function(match) {return Block.map[match.path];},
-		onCssData: function(data, match) {Block.mapCss[match.path] = data;}
+		onCssData: function(data, match) {Block.mapCss[match.path] = {
+			match: match,
+			data: data
+		};}
 	})
 };
 
@@ -70,6 +82,18 @@ function compAsyncLoad(loader, name) {
 		});
 	});
 
+}
+
+function getCompsCss() {
+	var tries = [ Comp, Page, Block ];
+	var list = [];
+	forEach(tries, function(comp) {
+		forEachProperty(comp.mapCss, function(item) {
+			item.comp = comp.name;
+			list.push(item);
+		});
+	});
+	return list;
 }
 
 function resolveUserComponents(name) {
@@ -203,8 +227,15 @@ function defaultRenderApp(App, router, route, cb) {
 
 function defaultRenderAppToString(opt, app) {
 	renderToString(app)
-		.then(opt.onRenderString || defaultRenderAppToStringSuccess)
+		.then(renderAppToStringSuccess)
 		.catch(opt.onRenderStringError || defaultRenderAppToStringError);
+	function renderAppToStringSuccess(html) {
+		var fn = opt.onRenderString || defaultRenderAppToStringSuccess
+		fn({
+			html: html,
+			css: getCompsCss()
+		});
+	}
 }
 function defaultRenderAppToStringSuccess(html) {
 	console.log('/** vue app HTML rendered **/');

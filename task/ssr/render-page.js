@@ -30,7 +30,8 @@ function getParser(id, elAdapter) {
 				// builder: tb,
 				// parser: xp
 			};
-		}
+		},
+		elAdapter: elAdapter
 	};
 }
 
@@ -81,15 +82,27 @@ module.exports = function renderPage(opt) {
 		if (!repErrors.length) repErrors = null;
 		opt.cb(repErrors, page);
 		function customPrintTag(node, level, path, printTag, printer) {
-			var rep = opt.getReplacement(node, page.elAdapter);
+			var rep = opt.getReplacement(node, page.elAdapter, path);
 			if (rep) {
 				parser = getParser('component');
 				var repName = rep.name;
-				var repIndent = null == rep.indent ? level :
+				var repMode = rep.mode;
+				var repIndent = null == rep.indent ? level+1 :
 					+rep.indent === rep.indent ? rep.indent :
 					rep.indent instanceof Function ? rep.indent(level) :
 					level;
-				rep = parseString(rep.text, parser);
+				var nodeChildren = '';
+				if ('append' === repMode || 'prepend' === repMode) {
+					nodeChildren = printer.printTagChildren(node, level+1, path.concat([node]));
+				}
+				if (rep.tree) {
+					rep = {
+						tree: rep.tree,
+						elAdapter: parser.elAdapter
+					};
+				} else {
+					rep = parseString(rep.text, parser);
+				}
 				if (rep.error) {
 					console.error('/*** Error parsing '+repName+' ***/');
 					console.error(rep.source);
@@ -99,12 +112,14 @@ module.exports = function renderPage(opt) {
 					});
 					// return printTag(node, level);
 				}
-				rep = printTree(rep.tree, rep.elAdapter, null, null, repIndent);
+				rep = printTree(rep.tree, rep.elAdapter, null, path, repIndent);
 				rep =
 					printer.printIndent(level) +
 					printer.printTagOpen(node) +
-					printer.newLine +
+					printer.newLine + 
+					( 'append' === repMode ? nodeChildren : '' )+
 					rep +
+					( 'prepend' === repMode ? nodeChildren : '' )+
 					printer.printIndent(level) +
 					printer.printTagClose(node) +
 					printer.newLine;
