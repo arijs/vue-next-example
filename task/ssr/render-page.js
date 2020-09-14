@@ -58,16 +58,16 @@ function parseString(str, parser) {
 	return parser.getResult(str);
 }
 
-function printTree(tree, elAdapter, customPrintTag, level) {
+function printTree(tree, elAdapter, customPrintTag, path, level) {
 	var printer = new Printer();
 	printer.elAdapter = elAdapter;
 	if (customPrintTag instanceof Function) {
 		var defaultPrintTag = printer.printTag.bind(printer);
-		printer.printTag = function(node, level) {
-			return customPrintTag(node, level, defaultPrintTag, printer);
+		printer.printTag = function(node, level, path) {
+			return customPrintTag(node, level, path, defaultPrintTag, printer);
 		};
 	}
-	return printer.print(tree, level || 0);
+	return printer.print(tree, level || 0, path);
 }
 
 module.exports = function renderPage(opt) {
@@ -77,10 +77,10 @@ module.exports = function renderPage(opt) {
 			return opt.cb(page.error);
 		}
 		var repErrors = [];
-		page = printTree(page.tree, page.elAdapter, customPrintTag, opt.indentLevel);
+		page = printTree(page.tree, page.elAdapter, customPrintTag, null, opt.indentLevel);
 		if (!repErrors.length) repErrors = null;
 		opt.cb(repErrors, page);
-		function customPrintTag(node, level, printTag, printer) {
+		function customPrintTag(node, level, path, printTag, printer) {
 			var rep = opt.getReplacement(node, page.elAdapter);
 			if (rep) {
 				parser = getParser('component');
@@ -99,7 +99,7 @@ module.exports = function renderPage(opt) {
 					});
 					// return printTag(node, level);
 				}
-				rep = printTree(rep.tree, rep.elAdapter, null, repIndent);
+				rep = printTree(rep.tree, rep.elAdapter, null, null, repIndent);
 				rep =
 					printer.printIndent(level) +
 					printer.printTagOpen(node) +
@@ -110,7 +110,7 @@ module.exports = function renderPage(opt) {
 					printer.newLine;
 				return rep;
 			} else {
-				return printTag(node, level);
+				return printTag(node, level, path);
 			}
 		}
 	})
