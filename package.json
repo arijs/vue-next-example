@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node task/localhost.js",
-		"prerender": "node task/prerender.js"
+		"prerender": "node task/prerender.mjs"
 	},
 	"repository": {
 		"type": "git",
@@ -24,10 +24,12 @@
 	},
 	"homepage": "https://github.com/arijs/vue-next-example#readme",
 	"dependencies": {
-		"@arijs/stream-xml-parser": "^0.1.6",
-		"@vue/server-renderer": "^3.0.0-rc.10",
+		"@arijs/vue-prerender": "^0.0.4",
+		"@vue/compiler-dom": "^3.0.4",
+		"@vue/server-renderer": "^3.0.4",
 		"express": "^4.17.1",
-		"vue": "^3.0.0-rc.10",
-		"vue-router": "^4.0.0-beta.9"
+		"terser": "^5.5.1",
+		"vue": "^3.0.4",
+		"vue-router": "^4.0.2"
 	}
 }

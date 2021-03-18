@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+		Vue Next (v3) example
+	</title>
+	<meta name="description" content="Vue Next (v3) example description" />
+	<script>
+		var _app$ = {};
+	</script>
+	<link rel="stylesheet" href="/comp/root/root.css" />
+	<link rel="stylesheet" href="/page/home/home.css" />
+</head>
+<body>
+	<div id="root"><div class="app--root"><p>Root element</p><ul><li><a aria-current="page" href="/" class="router-link-active router-link-exact-active">Home</a></li><li><a href="/about" class="">About</a></li></ul><div class="app--pages--home"><h1>Home</h1><a href="/about" class="">Sobre</a><!--[--><p>Select a user</p><ul><!--[--><li><a href="/users/0" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/1" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/2" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/3" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/4" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/5" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/6" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/7" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/8" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/9" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/10" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/11" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/12" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/13" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/14" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/15" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/16" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/17" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/18" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/19" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/20" class="">James, 40</a> - <button>Details</button></li><!--]--></ul><dialog id="dialog"><div class="dialog-wrap"><!--v-if--></div></dialog><!--]--></div><!-- <app--pages--home></app--pages--home> --></div></div>
+	<script src="/js/lib/extend.js"></script>
+	<script src="/js/lib/deferred.js"></script>
+	<script src="/js/lib/printf.js"></script>
+	<script src="/js/lib/loaders.js"></script>
+	<script src="/js/lib/load-component.js"></script>
+	<script src="/js/lib/pointer-drag.js"></script>
+	<!-- <script src="/js/vendor/vue.global.js"></script> -->
+	<script src="https://unpkg.com/vue@next"></script>
+	<script src="https://unpkg.com/vue-router@4"></script>
+	<script src="/js/browser/services.js"></script>
+	<script src="/js/isomorphic/router.js"></script>
+	<script src="/js/isomorphic/use.js"></script>
+	<script src="/js/browser/use.js"></script>
+	<script src="/js/browser/index.js"></script>
+	<script src="/comp/root/root.js"></script>
+	<script src="/page/home/home.js"></script>
+<script>
+
+!function(global) {
+function assembleComponent(croot, cpath, getRender) {
+	const cdef = deferredPromise([croot, cpath].join('::'));
+	const gc = global[croot];
+	const comp = gc.map[cpath];
+	comp.render = getRender();
+	comp.render._rc = true;
+		// Reason for this flag _rc :
+		// https://github.com/vuejs/vue-next/pull/2910#issuecomment-752980088
+		// https://jsfiddle.net/Linusborg/3tkae0jd/
+	gc.mapCache[cpath] = cdef.promise;
+	cdef.resolve({comp: {data: comp}});
+}
+
+	assembleComponent("Comp", "root", function() {const { createVNode: _createVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx, createCommentVNode: _createCommentVNode, openBlock: _openBlock, createBlock: _createBlock } = Vue
+
+return function render(_ctx, _cache) {
+  const _component_router_link = _resolveComponent("router-link")
+  const _component_router_view = _resolveComponent("router-view")
+
+  return (_openBlock(), _createBlock("div", { class: "app--root" }, [
+    _createVNode("p", null, "Root element"),
+    _createVNode("ul", null, [
+      _createVNode("li", null, [
+        _createVNode(_component_router_link, { to: "/" }, {
+          default: _withCtx(() => [
+            _createTextVNode("Home")
+          ]),
+          _: 1 /* STABLE */
+        })
+      ]),
+      _createVNode("li", null, [
+        _createVNode(_component_router_link, { to: "/about" }, {
+          default: _withCtx(() => [
+            _createTextVNode("About")
+          ]),
+          _: 1 /* STABLE */
+        })
+      ])
+    ]),
+    _createVNode(_component_router_view, { route: _ctx.routeWithModal }, null, 8 /* PROPS */, ["route"]),
+    _createCommentVNode(" <app--pages--home></app--pages--home> ")
+  ]))
+};});
+
+	assembleComponent("Page", "home", function() {const { createVNode: _createVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx, openBlock: _openBlock, createBlock: _createBlock, createCommentVNode: _createCommentVNode, toDisplayString: _toDisplayString, Fragment: _Fragment, renderList: _renderList } = Vue
+
+return function render(_ctx, _cache) {
+  const _component_router_link = _resolveComponent("router-link")
+
+  return (_openBlock(), _createBlock("div", { class: "app--pages--home" }, [
+    _createVNode("h1", null, "Home"),
+    _createVNode(_component_router_link, { to: "/about" }, {
+      default: _withCtx(() => [
+        _createTextVNode("Sobre")
+      ]),
+      _: 1 /* STABLE */
+    }),
+    (_ctx.usersLoading)
+      ? (_openBlock(), _createBlock("p", { key: 0 }, "Please wait, loading user list..."))
+      : (_ctx.usersError)
+        ? (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
+            _createVNode("p", {
+              textContent: _toDisplayString(_ctx.getErrorMessage(_ctx.usersError))
+            }, null, 8 /* PROPS */, ["textContent"]),
+            (_ctx.usersError.error && _ctx.usersError.error.message)
+              ? (_openBlock(), _createBlock("p", {
+                  key: 0,
+                  textContent: _toDisplayString(_ctx.usersError.error.message)
+                }, null, 8 /* PROPS */, ["textContent"]))
+              : _createCommentVNode("v-if", true),
+            ('object' === typeof _ctx.usersError)
+              ? (_openBlock(), _createBlock("pre", {
+                  key: 1,
+                  textContent: _toDisplayString(JSON.stringify(_ctx.usersError, null, 2)),
+                  style: {"/*display":"none"}
+                }, null, 8 /* PROPS */, ["textContent"]))
+              : _createCommentVNode("v-if", true)
+          ], 64 /* STABLE_FRAGMENT */))
+        : (_ctx.usersLista)
+          ? (_openBlock(), _createBlock(_Fragment, { key: 2 }, [
+              _createVNode("p", null, "Select a user"),
+              _createVNode("ul", null, [
+                (_openBlock(true), _createBlock(_Fragment, null, _renderList(_ctx.usersLista, (user, id) => {
+                  return (_openBlock(), _createBlock("li", null, [
+                    _createVNode(_component_router_link, {
+                      to: { name: 'user', params: { id }}
+                    }, {
+                      default: _withCtx(() => [
+                        _createTextVNode(_toDisplayString(user.name) + ", " + _toDisplayString(user.age), 1 /* TEXT */)
+                      ]),
+                      _: 2 /* DYNAMIC */
+                    }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["to"]),
+                    _createTextVNode(" - "),
+                    _createVNode("button", {
+                      onClick: $event => (_ctx.showUserModal(id))
+                    }, "Details", 8 /* PROPS */, ["onClick"])
+                  ]))
+                }), 256 /* UNKEYED_FRAGMENT */))
+              ]),
+              _createVNode("dialog", {
+                ref: "modal",
+                id: "dialog"
+              }, [
+                _createVNode("div", { class: "dialog-wrap" }, [
+                  (_ctx.userId)
+                    ? (_openBlock(), _createBlock("div", { key: 0 }, [
+                        _createVNode("p", null, [
+                          _createTextVNode(" User #" + _toDisplayString(_ctx.userId) + " ", 1 /* TEXT */),
+                          _createVNode("br"),
+                          _createTextVNode(" Name: " + _toDisplayString(_ctx.usersLista[_ctx.userId].name) + " ", 1 /* TEXT */),
+                          _createVNode("br"),
+                          _createTextVNode(" Age: " + _toDisplayString(_ctx.usersLista[_ctx.userId].age), 1 /* TEXT */)
+                        ]),
+                        _createVNode(_component_router_link, { to: "/about" }, {
+                          default: _withCtx(() => [
+                            _createTextVNode("Go somewhere else")
+                          ]),
+                          _: 1 /* STABLE */
+                        }),
+                        _createVNode("br"),
+                        _createVNode("button", { onClick: _ctx.closeUserModal }, "Close", 8 /* PROPS */, ["onClick"])
+                      ]))
+                    : _createCommentVNode("v-if", true)
+                ])
+              ], 512 /* NEED_PATCH */)
+            ], 64 /* STABLE_FRAGMENT */))
+          : (_openBlock(), _createBlock(_Fragment, { key: 3 }, [
+              _createVNode("p", null, "Users not loaded."),
+              _createVNode("p", null, [
+                _createVNode("a", {
+                  href: "javascript:;",
+                  onClick: _ctx.usersLoad
+                }, "Click here to load the users", 8 /* PROPS */, ["onClick"])
+              ])
+            ], 64 /* STABLE_FRAGMENT */))
+  ]))
+};});
+
+	global.services.initialState = {"users":{"data":{"success":true,"data":[{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40}]}}};
+
+}(_app$);
+
+</script>
+	<script>
+		_app$.initApp();
+	</script>
+</body>
+</html>

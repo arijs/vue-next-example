@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+		Vue Next (v3) example
+	</title>
+	<meta name="description" content="Vue Next (v3) example description" />
+	<script>
+		var _app$ = {};
+	</script>
+	<link rel="stylesheet" href="/comp/root/root.css" />
+	<link rel="stylesheet" href="/page/about/about.css" />
+</head>
+<body>
+	<div id="root"><div class="app--root"><p>Root element</p><ul><li><a href="/" class="">Home</a></li><li><a aria-current="page" href="/about" class="router-link-active router-link-exact-active">About</a></li></ul><div class="app--pages--about"><h1>Sobre</h1><p><button>Back</button><span> | </span><a href="/" class="">Home</a></p></div><!-- <app--pages--home></app--pages--home> --></div></div>
+	<script src="/js/lib/extend.js"></script>
+	<script src="/js/lib/deferred.js"></script>
+	<script src="/js/lib/printf.js"></script>
+	<script src="/js/lib/loaders.js"></script>
+	<script src="/js/lib/load-component.js"></script>
+	<script src="/js/lib/pointer-drag.js"></script>
+	<!-- <script src="/js/vendor/vue.global.js"></script> -->
+	<script src="https://unpkg.com/vue@next"></script>
+	<script src="https://unpkg.com/vue-router@4"></script>
+	<script src="/js/browser/services.js"></script>
+	<script src="/js/isomorphic/router.js"></script>
+	<script src="/js/isomorphic/use.js"></script>
+	<script src="/js/browser/use.js"></script>
+	<script src="/js/browser/index.js"></script>
+	<script src="/comp/root/root.js"></script>
+	<script src="/page/about/about.js"></script>
+<script>
+
+!function(global) {
+function assembleComponent(croot, cpath, getRender) {
+	const cdef = deferredPromise([croot, cpath].join('::'));
+	const gc = global[croot];
+	const comp = gc.map[cpath];
+	comp.render = getRender();
+	comp.render._rc = true;
+		// Reason for this flag _rc :
+		// https://github.com/vuejs/vue-next/pull/2910#issuecomment-752980088
+		// https://jsfiddle.net/Linusborg/3tkae0jd/
+	gc.mapCache[cpath] = cdef.promise;
+	cdef.resolve({comp: {data: comp}});
+}
+
+	assembleComponent("Comp", "root", function() {const { createVNode: _createVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx, createCommentVNode: _createCommentVNode, openBlock: _openBlock, createBlock: _createBlock } = Vue
+
+return function render(_ctx, _cache) {
+  const _component_router_link = _resolveComponent("router-link")
+  const _component_router_view = _resolveComponent("router-view")
+
+  return (_openBlock(), _createBlock("div", { class: "app--root" }, [
+    _createVNode("p", null, "Root element"),
+    _createVNode("ul", null, [
+      _createVNode("li", null, [
+        _createVNode(_component_router_link, { to: "/" }, {
+          default: _withCtx(() => [
+            _createTextVNode("Home")
+          ]),
+          _: 1 /* STABLE */
+        })
+      ]),
+      _createVNode("li", null, [
+        _createVNode(_component_router_link, { to: "/about" }, {
+          default: _withCtx(() => [
+            _createTextVNode("About")
+          ]),
+          _: 1 /* STABLE */
+        })
+      ])
+    ]),
+    _createVNode(_component_router_view, { route: _ctx.routeWithModal }, null, 8 /* PROPS */, ["route"]),
+    _createCommentVNode(" <app--pages--home></app--pages--home> ")
+  ]))
+};});
+
+	assembleComponent("Page", "about", function() {const { createVNode: _createVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx, openBlock: _openBlock, createBlock: _createBlock } = Vue
+
+return function render(_ctx, _cache) {
+  const _component_router_link = _resolveComponent("router-link")
+
+  return (_openBlock(), _createBlock("div", { class: "app--pages--about" }, [
+    _createVNode("h1", null, "Sobre"),
+    _createVNode("p", null, [
+      _createVNode("button", { onClick: _ctx.back }, "Back", 8 /* PROPS */, ["onClick"]),
+      _createVNode("span", null, " | "),
+      _createVNode(_component_router_link, { to: "/" }, {
+        default: _withCtx(() => [
+          _createTextVNode("Home")
+        ]),
+        _: 1 /* STABLE */
+      })
+    ])
+  ]))
+};});
+
+	global.services.initialState = {"users":{"data":{"success":true,"data":[{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40}]}}};
+
+}(_app$);
+
+</script>
+	<script>
+		_app$.initApp();
+	</script>
+</body>
+</html>

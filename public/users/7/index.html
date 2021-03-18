@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+		Vue Next (v3) example
+	</title>
+	<meta name="description" content="Vue Next (v3) example description" />
+	<script>
+		var _app$ = {};
+	</script>
+	<link rel="stylesheet" href="/comp/root/root.css" />
+	<link rel="stylesheet" href="/page/user/details/details.css" />
+</head>
+<body>
+	<div id="root"><div class="app--root"><p>Root element</p><ul><li><a href="/" class="">Home</a></li><li><a href="/about" class="">About</a></li></ul><div class="page--user--details"><!--[--><h1>User #7</h1><p> Name: Jessica</p><p> Age: 31</p><a href="/" class="">Back home</a><!--]--></div><!-- <app--pages--home></app--pages--home> --></div></div>
+	<script src="/js/lib/extend.js"></script>
+	<script src="/js/lib/deferred.js"></script>
+	<script src="/js/lib/printf.js"></script>
+	<script src="/js/lib/loaders.js"></script>
+	<script src="/js/lib/load-component.js"></script>
+	<script src="/js/lib/pointer-drag.js"></script>
+	<!-- <script src="/js/vendor/vue.global.js"></script> -->
+	<script src="https://unpkg.com/vue@next"></script>
+	<script src="https://unpkg.com/vue-router@4"></script>
+	<script src="/js/browser/services.js"></script>
+	<script src="/js/isomorphic/router.js"></script>
+	<script src="/js/isomorphic/use.js"></script>
+	<script src="/js/browser/use.js"></script>
+	<script src="/js/browser/index.js"></script>
+	<script src="/comp/root/root.js"></script>
+	<script src="/page/user/details/details.js"></script>
+<script>
+
+!function(global) {
+function assembleComponent(croot, cpath, getRender) {
+	const cdef = deferredPromise([croot, cpath].join('::'));
+	const gc = global[croot];
+	const comp = gc.map[cpath];
+	comp.render = getRender();
+	comp.render._rc = true;
+		// Reason for this flag _rc :
+		// https://github.com/vuejs/vue-next/pull/2910#issuecomment-752980088
+		// https://jsfiddle.net/Linusborg/3tkae0jd/
+	gc.mapCache[cpath] = cdef.promise;
+	cdef.resolve({comp: {data: comp}});
+}
+
+	assembleComponent("Comp", "root", function() {const { createVNode: _createVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx, createCommentVNode: _createCommentVNode, openBlock: _openBlock, createBlock: _createBlock } = Vue
+
+return function render(_ctx, _cache) {
+  const _component_router_link = _resolveComponent("router-link")
+  const _component_router_view = _resolveComponent("router-view")
+
+  return (_openBlock(), _createBlock("div", { class: "app--root" }, [
+    _createVNode("p", null, "Root element"),
+    _createVNode("ul", null, [
+      _createVNode("li", null, [
+        _createVNode(_component_router_link, { to: "/" }, {
+          default: _withCtx(() => [
+            _createTextVNode("Home")
+          ]),
+          _: 1 /* STABLE */
+        })
+      ]),
+      _createVNode("li", null, [
+        _createVNode(_component_router_link, { to: "/about" }, {
+          default: _withCtx(() => [
+            _createTextVNode("About")
+          ]),
+          _: 1 /* STABLE */
+        })
+      ])
+    ]),
+    _createVNode(_component_router_view, { route: _ctx.routeWithModal }, null, 8 /* PROPS */, ["route"]),
+    _createCommentVNode(" <app--pages--home></app--pages--home> ")
+  ]))
+};});
+
+	assembleComponent("Page", "user/details", function() {const { toDisplayString: _toDisplayString, createVNode: _createVNode, openBlock: _openBlock, createBlock: _createBlock, createCommentVNode: _createCommentVNode, Fragment: _Fragment, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx } = Vue
+
+return function render(_ctx, _cache) {
+  const _component_router_link = _resolveComponent("router-link")
+
+  return (_openBlock(), _createBlock("div", { class: "page--user--details" }, [
+    (_ctx.usersLoading)
+      ? (_openBlock(), _createBlock("p", { key: 0 }, "Please wait, loading user #" + _toDisplayString(_ctx.id) + "...", 1 /* TEXT */))
+      : (_ctx.usersError)
+        ? (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
+            _createVNode("p", {
+              textContent: _toDisplayString(_ctx.getErrorMessage(_ctx.usersError))
+            }, null, 8 /* PROPS */, ["textContent"]),
+            (_ctx.usersError.error && _ctx.usersError.error.message)
+              ? (_openBlock(), _createBlock("p", {
+                  key: 0,
+                  textContent: _toDisplayString(_ctx.usersError.error.message)
+                }, null, 8 /* PROPS */, ["textContent"]))
+              : _createCommentVNode("v-if", true),
+            ('object' === typeof _ctx.usersError)
+              ? (_openBlock(), _createBlock("pre", {
+                  key: 1,
+                  textContent: _toDisplayString(JSON.stringify(_ctx.usersError, null, 2)),
+                  style: {"/*display":"none"}
+                }, null, 8 /* PROPS */, ["textContent"]))
+              : _createCommentVNode("v-if", true)
+          ], 64 /* STABLE_FRAGMENT */))
+        : (_ctx.userData)
+          ? (_openBlock(), _createBlock(_Fragment, { key: 2 }, [
+              _createVNode("h1", null, "User #" + _toDisplayString(_ctx.id), 1 /* TEXT */),
+              _createVNode("p", null, " Name: " + _toDisplayString(_ctx.userData.name), 1 /* TEXT */),
+              _createVNode("p", null, " Age: " + _toDisplayString(_ctx.userData.age), 1 /* TEXT */),
+              _createVNode(_component_router_link, { to: "/" }, {
+                default: _withCtx(() => [
+                  _createTextVNode("Back home")
+                ]),
+                _: 1 /* STABLE */
+              })
+            ], 64 /* STABLE_FRAGMENT */))
+          : (_openBlock(), _createBlock(_Fragment, { key: 3 }, [
+              _createVNode("p", null, "Users not loaded."),
+              _createVNode("p", null, [
+                _createVNode("a", {
+                  href: "javascript:;",
+                  onClick: _ctx.usersLoad
+                }, "Click here to load the users", 8 /* PROPS */, ["onClick"])
+              ])
+            ], 64 /* STABLE_FRAGMENT */))
+  ]))
+};});
+
+	global.services.initialState = {"users":{"data":{"success":true,"data":[{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40},{"name":"John","age":27},{"name":"Jessica","age":31},{"name":"James","age":40}]}}};
+
+}(_app$);
+
+</script>
+	<script>
+		_app$.initApp();
+	</script>
+</body>
+</html>

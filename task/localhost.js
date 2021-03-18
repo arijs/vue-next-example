@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 
 var port = process.argv[2] || 8070;
-var pathStatic = path.resolve(__dirname, '..');
+var pathStatic = path.resolve(__dirname, '../public');
 var pathFallback = '/';
 
 app.use(express.static(pathStatic));

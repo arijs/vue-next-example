@@ -1,0 +1,41 @@
+<div class="app--pages--home">
+	<h1>Home</h1>
+	<router-link to="/about">Sobre</router-link>
+	<template v-if="usersLoading">
+		<p>Please wait, loading user list...</p>
+	</template>
+	<template v-else-if="usersError">
+		<p v-text="getErrorMessage(usersError)"></p>
+		<p v-if="usersError.error && usersError.error.message" v-text="usersError.error.message"></p>
+		<pre v-if="'object' === typeof usersError" v-text="JSON.stringify(usersError, null, 2)" style="/*display: none;*/"></pre>
+	</template>
+	<template v-else-if="usersLista">
+		<p>Select a user</p>
+		<ul>
+			<li v-for="(user, id) in usersLista">
+				<router-link :to="{ name: 'user', params: { id }}">{{ user.name }}, {{ user.age }}</router-link>
+				- <button @click="showUserModal(id)">Details</button>
+			</li>
+		</ul>
+		<dialog ref="modal" id="dialog">
+			<div class="dialog-wrap">
+				<div v-if="userId">
+					<p>
+						User #{{ userId }}
+						<br>
+						Name: {{ usersLista[userId].name }}
+						<br>
+						Age: {{ usersLista[userId].age }}
+					</p>
+					<router-link to="/about">Go somewhere else</router-link>
+					<br>
+					<button @click="closeUserModal">Close</button>
+				</div>
+			</div>
+		</dialog>
+	</template>
+	<template v-else>
+		<p>Users not loaded.</p>
+		<p><a href="javascript:;" v-on:click="usersLoad">Click here to load the users</a></p>
+	</template>
+</div>
