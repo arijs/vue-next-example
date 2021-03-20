@@ -67,21 +67,10 @@ Vue.resolveDynamicComponent = global.scopeResolveDynamicComponent = function(nam
 		|| originalRDC(name);
 };
 
-global.initRouter();
-
-global.routeWithModal = global.getRouteWithModal(global.router);
-
 global.initApp = function() {
-	global.router.afterEach(function(to, from) {
-		window.scrollTo(0, 0);
-	});
+	var root = global.root = Vue.createSSRApp(Vue.resolveComponent('app--no-router'));
 
-	var root = global.root = Vue.createSSRApp(Vue.resolveComponent('app--root'));
-	root.use(global.router);
-
-	global.router.isReady().then(function() {
-		root.mount('#root');
-	});
+	root.mount('#root');
 };
 
 }(_app$);

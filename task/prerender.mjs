@@ -48,7 +48,8 @@ function pgUsers(path) {
 
 var pages = [
 	{ route: '/', waitUsers: true },
-	{ route: '/about' }
+	{ route: '/about' },
+	{ route: '/no-router', noRouter: true, rootComp: 'app--no-router', pageTemplate: 'template-norouter.html', lastScriptSrc: '/js/browser/index-no-router.js' }
 ];
 var pgSuccess = [];
 var pgError = [];
@@ -87,12 +88,13 @@ services.getUsersLista().then(function({data}) {
 });
 
 function runOrNot(next) {
-	return true;
+	// return true;
 	// for testing specific routes
-	// return false
-	// 	|| ('/' === next.route)
-	// 	|| ('/about' === next.route)
-	// 	|| ('/users/0' === next.route);
+	return false
+		|| ('/' === next.route)
+		|| ('/about' === next.route)
+		|| ('/no-router' === next.route)
+		|| ('/users/0' === next.route);
 }
 
 function runNext() {
@@ -141,6 +143,7 @@ function runNext() {
 }
 
 async function ssr(next) {
+	const {noRouter} = next;
 	const dtStart = new Date();
 	const isDebug = false; // '/users/7' === next.route;
 	services.setDebug(isDebug);
@@ -158,7 +161,7 @@ async function ssr(next) {
 	const jsContext = {
 		[jsGlobalVar]: jsGlobal,
 		Vue,
-		VueRouter,
+		VueRouter: noRouter ? undefined : VueRouter,
 		forEach,
 	};
 
@@ -208,12 +211,13 @@ async function ssr(next) {
 	({
 		resolveAsyncComponent: customResolve,
 	} = vueLoaders);
+	jsGlobal.resolveUserLoader = vueLoaders.resolveUserLoader;
 
 	await scriptQueue({ jsContext, queue: [
-		appPath('js/isomorphic/router.js'),
+		noRouter ? [] : [appPath('js/isomorphic/router.js')],
 		appPath('js/isomorphic/use.js'),
 		appPath('js/prerender/use.js'),
-	], processResult: function(req) {
+	].flat(), processResult: function(req) {
 		if (isDebug) console.log(' +  script load', req.url, inspect(jsGlobal, 1, 32));
 	} });
 
@@ -222,16 +226,19 @@ async function ssr(next) {
 	await jsGlobal.users.load();
 	console.log(' +  waited for users!');
 
-	jsGlobal.initRouter();
-	const { router } = jsGlobal;
+	let router;
+	if (!noRouter) {
+		jsGlobal.initRouter();
+		router = jsGlobal.router;
 
-	await routerPush({ router, route: next.route });
+		await routerPush({ router, route: next.route });
 
-	console.log(' +  router pushed', next.route);
+		console.log(' +  router pushed', next.route);
+	}
 
 	const [rootHtml] = await Promise.all([
 		renderApp({
-			componentName: 'app--root',
+			componentName: next.rootComp || 'app--root',
 			resolveComponent,
 			router,
 			createSSRApp,
@@ -241,7 +248,7 @@ async function ssr(next) {
 
 	console.log(' +  page root component rendered', String(rootHtml).length, 'str length');
 
-	const htmlParsed = await parseHtml(appPath('template.html'));
+	const htmlParsed = await parseHtml(appPath(next.pageTemplate || 'template.html'));
 	const { elAdapter } = htmlParsed;
 
 	let {page, nodesRep} = await printHtml(htmlParsed, {}, [
@@ -277,7 +284,7 @@ async function ssr(next) {
 			name: 'comp scripts',
 			matcher: {
 				name: 'script',
-				attrs: [['src', '/js/browser/index.js'], [null, null, '<0>']],
+				attrs: [['src', next.lastScriptSrc || '/js/browser/index.js'], [null, null, '<0>']],
 				path: ['html', 'body']
 			},
 			callback: function(opt) {

@@ -1,5 +1,8 @@
 # Vue-Next-Example
 
+Live Example: http://vue-next-example.arijs.org/
+Live Example without VueRouter: http://vue-next-example.arijs.org/no-router/
+
 Your application code is not compiled at all, you save and reload your browser like in the good old times 😁. Components are loaded on the runtime only at the moment they are needed.
 
 Each component is in a folder with 3 files:

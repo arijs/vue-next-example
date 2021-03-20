@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>Vue Next (v3) example</title>
+	<title>Vue Next (v3) example (no router)</title>
 	<meta name="description" content="Vue Next (v3) example description" />
 
 	<script>var _app$ = {};</script>
@@ -46,14 +46,11 @@
 		var pointerDrag = AriJS.client.dom['pointer-drag']['default'];
 		var deferredPromise = AriJS.isomorphic.utils.deferred.deferredPromise;
 	</script>
-	<!-- <script src="/js/vendor/vue.global.js"></script> -->
 	<script src="https://unpkg.com/vue@next"></script>
-	<script src="https://unpkg.com/vue-router@4"></script>
 	<script src="/js/browser/services.js"></script>
-	<script src="/js/isomorphic/router.js"></script>
 	<script src="/js/isomorphic/use.js"></script>
 	<script src="/js/browser/use.js"></script>
-	<script src="/js/browser/index.js"></script>
+	<script src="/js/browser/index-no-router.js"></script>
 	<script>_app$.initApp();</script>
 </body>
 </html>

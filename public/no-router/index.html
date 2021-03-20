@@ -4,17 +4,17 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>
-		Vue Next (v3) example
+		Vue Next (v3) example (no router)
 	</title>
 	<meta name="description" content="Vue Next (v3) example description" />
 	<script>
 		var _app$ = {};
 	</script>
-	<link rel="stylesheet" href="/comp/root/root.css" />
-	<link rel="stylesheet" href="/page/user/details/details.css" />
+	<link rel="stylesheet" href="/comp/no-router/no-router.css" />
+	<link rel="stylesheet" href="/page/home-no-router/home-no-router.css" />
 </head>
 <body>
-	<div id="root"><div class="app--root"><p>Root element</p><ul><li><a href="/" class="">Home</a></li><li><a href="/about" class="">About</a></li></ul><div class="page--user--details"><!--[--><h1>User #11</h1><p> Name: James</p><p> Age: 40</p><a href="/" class="">Back home</a><!--]--></div><!-- <app--pages--home></app--pages--home> --></div></div>
+	<div id="root"><div class="app--no-router"><p>Root element (no router)</p><ul><li><a href="/">Home</a></li><li><a href="/about">About</a></li></ul><!-- <router-view v-bind:route="routeWithModal"></router-view> --><div class="page--home-no-router"><h1>Home</h1><!--[--><p>Select a user</p><ul><!--[--><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><li>John, 27 - <button>Details</button></li><li>Jessica, 31 - <button>Details</button></li><li>James, 40 - <button>Details</button></li><!--]--></ul><dialog id="dialog"><div class="dialog-wrap"><!--v-if--></div></dialog><!--]--></div></div></div>
 	<script src="https://unpkg.com/regenerator-runtime@0.13.7/runtime.js"></script>
 	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/for-each.js"></script>
 	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/for-each-property.js"></script>
@@ -50,16 +50,13 @@
 		var pointerDrag = AriJS.client.dom['pointer-drag']['default'];
 		var deferredPromise = AriJS.isomorphic.utils.deferred.deferredPromise;
 	</script>
-	<!-- <script src="/js/vendor/vue.global.js"></script> -->
 	<script src="https://unpkg.com/vue@next"></script>
-	<script src="https://unpkg.com/vue-router@4"></script>
 	<script src="/js/browser/services.js"></script>
-	<script src="/js/isomorphic/router.js"></script>
 	<script src="/js/isomorphic/use.js"></script>
 	<script src="/js/browser/use.js"></script>
-	<script src="/js/browser/index.js"></script>
-	<script src="/comp/root/root.js"></script>
-	<script src="/page/user/details/details.js"></script>
+	<script src="/js/browser/index-no-router.js"></script>
+	<script src="/comp/no-router/no-router.js"></script>
+	<script src="/page/home-no-router/home-no-router.js"></script>
 <script>
 
 !function(global) {
@@ -76,45 +73,33 @@ function assembleComponent(croot, cpath, getRender) {
 	cdef.resolve({comp: {data: comp}});
 }
 
-	assembleComponent("Comp", "root", function() {const { createVNode: _createVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx, createCommentVNode: _createCommentVNode, openBlock: _openBlock, createBlock: _createBlock } = Vue
+	assembleComponent("Comp", "no-router", function() {const { createVNode: _createVNode, createCommentVNode: _createCommentVNode, resolveComponent: _resolveComponent, openBlock: _openBlock, createBlock: _createBlock } = Vue
 
 return function render(_ctx, _cache) {
-  const _component_router_link = _resolveComponent("router-link")
-  const _component_router_view = _resolveComponent("router-view")
+  const _component_page__home_no_router = _resolveComponent("page--home-no-router")
 
-  return (_openBlock(), _createBlock("div", { class: "app--root" }, [
-    _createVNode("p", null, "Root element"),
+  return (_openBlock(), _createBlock("div", { class: "app--no-router" }, [
+    _createVNode("p", null, "Root element (no router)"),
     _createVNode("ul", null, [
       _createVNode("li", null, [
-        _createVNode(_component_router_link, { to: "/" }, {
-          default: _withCtx(() => [
-            _createTextVNode("Home")
-          ]),
-          _: 1 /* STABLE */
-        })
+        _createVNode("a", { href: "/" }, "Home")
       ]),
       _createVNode("li", null, [
-        _createVNode(_component_router_link, { to: "/about" }, {
-          default: _withCtx(() => [
-            _createTextVNode("About")
-          ]),
-          _: 1 /* STABLE */
-        })
+        _createVNode("a", { href: "/about" }, "About")
       ])
     ]),
-    _createVNode(_component_router_view, { route: _ctx.routeWithModal }, null, 8 /* PROPS */, ["route"]),
-    _createCommentVNode(" <app--pages--home></app--pages--home> ")
+    _createCommentVNode(" <router-view v-bind:route=\"routeWithModal\"></router-view> "),
+    _createVNode(_component_page__home_no_router)
   ]))
 };});
 
-	assembleComponent("Page", "user/details", function() {const { toDisplayString: _toDisplayString, createVNode: _createVNode, openBlock: _openBlock, createBlock: _createBlock, createCommentVNode: _createCommentVNode, Fragment: _Fragment, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, withCtx: _withCtx } = Vue
+	assembleComponent("Page", "home-no-router", function() {const { createVNode: _createVNode, openBlock: _openBlock, createBlock: _createBlock, createCommentVNode: _createCommentVNode, toDisplayString: _toDisplayString, Fragment: _Fragment, renderList: _renderList, createTextVNode: _createTextVNode } = Vue
 
 return function render(_ctx, _cache) {
-  const _component_router_link = _resolveComponent("router-link")
-
-  return (_openBlock(), _createBlock("div", { class: "page--user--details" }, [
+  return (_openBlock(), _createBlock("div", { class: "page--home-no-router" }, [
+    _createVNode("h1", null, "Home"),
     (_ctx.usersLoading)
-      ? (_openBlock(), _createBlock("p", { key: 0 }, "Please wait, loading user #" + _toDisplayString(_ctx.id) + "...", 1 /* TEXT */))
+      ? (_openBlock(), _createBlock("p", { key: 0 }, "Please wait, loading user list..."))
       : (_ctx.usersError)
         ? (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
             _createVNode("p", {
@@ -134,17 +119,39 @@ return function render(_ctx, _cache) {
                 }, null, 8 /* PROPS */, ["textContent"]))
               : _createCommentVNode("v-if", true)
           ], 64 /* STABLE_FRAGMENT */))
-        : (_ctx.userData)
+        : (_ctx.usersLista)
           ? (_openBlock(), _createBlock(_Fragment, { key: 2 }, [
-              _createVNode("h1", null, "User #" + _toDisplayString(_ctx.id), 1 /* TEXT */),
-              _createVNode("p", null, " Name: " + _toDisplayString(_ctx.userData.name), 1 /* TEXT */),
-              _createVNode("p", null, " Age: " + _toDisplayString(_ctx.userData.age), 1 /* TEXT */),
-              _createVNode(_component_router_link, { to: "/" }, {
-                default: _withCtx(() => [
-                  _createTextVNode("Back home")
-                ]),
-                _: 1 /* STABLE */
-              })
+              _createVNode("p", null, "Select a user"),
+              _createVNode("ul", null, [
+                (_openBlock(true), _createBlock(_Fragment, null, _renderList(_ctx.usersLista, (user, id) => {
+                  return (_openBlock(), _createBlock("li", null, [
+                    _createTextVNode(_toDisplayString(user.name) + ", " + _toDisplayString(user.age) + " - ", 1 /* TEXT */),
+                    _createVNode("button", {
+                      onClick: $event => (_ctx.showUserModal(id))
+                    }, "Details", 8 /* PROPS */, ["onClick"])
+                  ]))
+                }), 256 /* UNKEYED_FRAGMENT */))
+              ]),
+              _createVNode("dialog", {
+                ref: "modal",
+                id: "dialog"
+              }, [
+                _createVNode("div", { class: "dialog-wrap" }, [
+                  (null != _ctx.userId)
+                    ? (_openBlock(), _createBlock("div", { key: 0 }, [
+                        _createVNode("p", null, [
+                          _createTextVNode(" User #" + _toDisplayString(_ctx.userId) + " ", 1 /* TEXT */),
+                          _createVNode("br"),
+                          _createTextVNode(" Name: " + _toDisplayString(_ctx.usersLista[_ctx.userId].name) + " ", 1 /* TEXT */),
+                          _createVNode("br"),
+                          _createTextVNode(" Age: " + _toDisplayString(_ctx.usersLista[_ctx.userId].age), 1 /* TEXT */)
+                        ]),
+                        _createVNode("br"),
+                        _createVNode("button", { onClick: _ctx.closeUserModal }, "Close", 8 /* PROPS */, ["onClick"])
+                      ]))
+                    : _createCommentVNode("v-if", true)
+                ])
+              ], 512 /* NEED_PATCH */)
             ], 64 /* STABLE_FRAGMENT */))
           : (_openBlock(), _createBlock(_Fragment, { key: 3 }, [
               _createVNode("p", null, "Users not loaded."),

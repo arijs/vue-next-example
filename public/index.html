@@ -15,12 +15,41 @@
 </head>
 <body>
 	<div id="root"><div class="app--root"><p>Root element</p><ul><li><a aria-current="page" href="/" class="router-link-active router-link-exact-active">Home</a></li><li><a href="/about" class="">About</a></li></ul><div class="app--pages--home"><h1>Home</h1><a href="/about" class="">Sobre</a><!--[--><p>Select a user</p><ul><!--[--><li><a href="/users/0" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/1" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/2" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/3" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/4" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/5" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/6" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/7" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/8" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/9" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/10" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/11" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/12" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/13" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/14" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/15" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/16" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/17" class="">James, 40</a> - <button>Details</button></li><li><a href="/users/18" class="">John, 27</a> - <button>Details</button></li><li><a href="/users/19" class="">Jessica, 31</a> - <button>Details</button></li><li><a href="/users/20" class="">James, 40</a> - <button>Details</button></li><!--]--></ul><dialog id="dialog"><div class="dialog-wrap"><!--v-if--></div></dialog><!--]--></div><!-- <app--pages--home></app--pages--home> --></div></div>
-	<script src="/js/lib/extend.js"></script>
-	<script src="/js/lib/deferred.js"></script>
-	<script src="/js/lib/printf.js"></script>
-	<script src="/js/lib/loaders.js"></script>
-	<script src="/js/lib/load-component.js"></script>
-	<script src="/js/lib/pointer-drag.js"></script>
+	<script src="https://unpkg.com/regenerator-runtime@0.13.7/runtime.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/for-each.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/for-each-property.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/inspect.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/collection.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/extend.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/listeners.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/deferred.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/printf/parse.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/printf/fill.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/state/dictionary-static.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/printf/index.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/loaders/component.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/loaders/comp-prefix.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/loaders/init-vue-loaders.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/ajax.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/script.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/stylesheet.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/component.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/comp-prefix.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/init-vue-loaders.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/dom/pointer-drag.js"></script>
+	<script>
+		var extend = AriJS.isomorphic.utils.extend['default'];
+		var printf = AriJS.isomorphic.printf.index['default'];
+		var loadScript = AriJS.client.loaders.script['default'];
+		var loadStylesheet = AriJS.client.loaders.stylesheet['default'];
+		var loadAjax = AriJS.client.loaders.ajax['default'];
+		loadAjax.typeJson = AriJS.client.loaders.ajax.ajaxTypeJson;
+		var loadAjaxPromise = AriJS.client.loaders.ajax.loadAjaxPromise;
+		var loadComponent = AriJS.client.loaders.component['default'];
+		var prefixMatcher = AriJS.client.loaders['comp-prefix']['default'];
+		var pointerDrag = AriJS.client.dom['pointer-drag']['default'];
+		var deferredPromise = AriJS.isomorphic.utils.deferred.deferredPromise;
+	</script>
 	<!-- <script src="/js/vendor/vue.global.js"></script> -->
 	<script src="https://unpkg.com/vue@next"></script>
 	<script src="https://unpkg.com/vue-router@4"></script>

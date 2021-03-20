@@ -2,12 +2,6 @@
 
 function nop() {}
 
-var historyState = {};
-global.getHistoryState = function() {
-	return historyState;
-};
-global.routerHistory = VueRouter.createMemoryHistory();
-
 var pointerDrag = {};
 global.pointerDrag = function() {
 	return pointerDrag;
@@ -26,30 +20,38 @@ global.useDocumentMeta = function(dm = {}) {
 
 global.getDocMeta = function() { return docMeta; };
 
-global.getRouteWithModal = function(router) {
-	var historyState = Vue.computed(function() {
-		return router.currentRoute.value.fullPath && global.getHistoryState();
-	});
-	var routeWithModal = Vue.computed(function() {
-		var bgView = historyState.value.bgView;
-		var rwm;
-		if (bgView) {
-			rwm = router.resolve(bgView);
-		} else {
-			rwm = router.currentRoute.value;
-		}
-		return rwm;
-	});
-	return routeWithModal;
-};
+if ('object' === typeof VueRouter) {
+	var historyState = {};
+	global.getHistoryState = function() {
+		return historyState;
+	};
+	global.routerHistory = VueRouter.createMemoryHistory();
 
-global.useHeaderTransparent = function (router, src) {
-	var rwm = global.getRouteWithModal(router);
-	return Vue.computed(function() {
-		var htt = rwm.value.meta.headerTopTransparent;
-		return htt;
-	});
-};
+	global.getRouteWithModal = function(router) {
+		var historyState = Vue.computed(function() {
+			return router.currentRoute.value.fullPath && global.getHistoryState();
+		});
+		var routeWithModal = Vue.computed(function() {
+			var bgView = historyState.value.bgView;
+			var rwm;
+			if (bgView) {
+				rwm = router.resolve(bgView);
+			} else {
+				rwm = router.currentRoute.value;
+			}
+			return rwm;
+		});
+		return routeWithModal;
+	};
+
+	global.useHeaderTransparent = function (router, src) {
+		var rwm = global.getRouteWithModal(router);
+		return Vue.computed(function() {
+			var htt = rwm.value.meta.headerTopTransparent;
+			return htt;
+		});
+	};
+}
 
 global.initDrag = function() {};
 

@@ -5,11 +5,6 @@ global.log = function() {
 };
 
 global.routeFromServer = window.location.pathname;
-global.getHistoryState = function() {
-	return window.history.state;
-};
-
-global.routerHistory = VueRouter.createWebHistory('/');
 
 var pageLoading = Vue.ref(false);
 global.pageLoading = pageLoading;
@@ -79,21 +74,29 @@ global.trackingPageView = function(path, title) {
 
 global.pointerDrag = pointerDrag;
 
-global.getRouteWithModal = function(router) {
-	var historyState = Vue.computed(function() {
-		return router.currentRoute.value.fullPath && global.getHistoryState();
-	});
-	var routeWithModal = Vue.computed(function() {
-		var bgView = historyState.value.bgView;
-		var rwm;
-		if (bgView) {
-			rwm = router.resolve(bgView);
-		} else {
-			rwm = router.currentRoute.value;
-		}
-		return rwm;
-	});
-	return routeWithModal;
-};
+if ('object' === typeof VueRouter) {
+	global.getHistoryState = function() {
+		return window.history.state;
+	};
+
+	global.routerHistory = VueRouter.createWebHistory('/');
+
+	global.getRouteWithModal = function(router) {
+		var historyState = Vue.computed(function() {
+			return router.currentRoute.value.fullPath && global.getHistoryState();
+		});
+		var routeWithModal = Vue.computed(function() {
+			var bgView = historyState.value.bgView;
+			var rwm;
+			if (bgView) {
+				rwm = router.resolve(bgView);
+			} else {
+				rwm = router.currentRoute.value;
+			}
+			return rwm;
+		});
+		return routeWithModal;
+	};
+}
 
 }(_app$);

@@ -15,12 +15,41 @@
 </head>
 <body>
 	<div id="root"><div class="app--root"><p>Root element</p><ul><li><a href="/" class="">Home</a></li><li><a href="/about" class="">About</a></li></ul><div class="page--user--details"><!--[--><h1>User #2</h1><p> Name: James</p><p> Age: 40</p><a href="/" class="">Back home</a><!--]--></div><!-- <app--pages--home></app--pages--home> --></div></div>
-	<script src="/js/lib/extend.js"></script>
-	<script src="/js/lib/deferred.js"></script>
-	<script src="/js/lib/printf.js"></script>
-	<script src="/js/lib/loaders.js"></script>
-	<script src="/js/lib/load-component.js"></script>
-	<script src="/js/lib/pointer-drag.js"></script>
+	<script src="https://unpkg.com/regenerator-runtime@0.13.7/runtime.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/for-each.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/for-each-property.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/inspect.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/collection.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/extend.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/listeners.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/utils/deferred.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/printf/parse.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/printf/fill.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/state/dictionary-static.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/printf/index.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/loaders/component.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/loaders/comp-prefix.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/isomorphic/loaders/init-vue-loaders.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/ajax.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/script.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/stylesheet.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/component.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/comp-prefix.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/loaders/init-vue-loaders.js"></script>
+	<script src="https://unpkg.com/@arijs/frontend@0.2.10/lib/client/dom/pointer-drag.js"></script>
+	<script>
+		var extend = AriJS.isomorphic.utils.extend['default'];
+		var printf = AriJS.isomorphic.printf.index['default'];
+		var loadScript = AriJS.client.loaders.script['default'];
+		var loadStylesheet = AriJS.client.loaders.stylesheet['default'];
+		var loadAjax = AriJS.client.loaders.ajax['default'];
+		loadAjax.typeJson = AriJS.client.loaders.ajax.ajaxTypeJson;
+		var loadAjaxPromise = AriJS.client.loaders.ajax.loadAjaxPromise;
+		var loadComponent = AriJS.client.loaders.component['default'];
+		var prefixMatcher = AriJS.client.loaders['comp-prefix']['default'];
+		var pointerDrag = AriJS.client.dom['pointer-drag']['default'];
+		var deferredPromise = AriJS.isomorphic.utils.deferred.deferredPromise;
+	</script>
 	<!-- <script src="/js/vendor/vue.global.js"></script> -->
 	<script src="https://unpkg.com/vue@next"></script>
 	<script src="https://unpkg.com/vue-router@4"></script>
