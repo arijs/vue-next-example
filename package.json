@@ -24,7 +24,7 @@
 	},
 	"homepage": "https://github.com/arijs/vue-next-example#readme",
 	"dependencies": {
-		"@arijs/vue-prerender": "file:../vue-prerender",
+		"@arijs/vue-prerender": "^0.0.5",
 		"@vue/compiler-dom": "^3.0.4",
 		"@vue/server-renderer": "^3.0.4",
 		"express": "^4.17.1",
