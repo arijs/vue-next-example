@@ -6,7 +6,10 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node task/localhost.js",
-		"prerender": "node task/prerender.mjs"
+		"prerender": "node task/prerender.mjs",
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
 	},
 	"repository": {
 		"type": "git",
@@ -25,11 +28,12 @@
 	"homepage": "https://github.com/arijs/vue-next-example#readme",
 	"dependencies": {
 		"@arijs/vue-prerender": "^0.0.5",
-		"@vue/compiler-dom": "^3.0.4",
+		"@vue/compiler-dom": "^3.0.11",
 		"@vue/server-renderer": "^3.0.4",
 		"express": "^4.17.1",
 		"terser": "^5.5.1",
 		"vue": "^3.0.4",
-		"vue-router": "^4.0.2"
+		"vue-router": "^4.0.2",
+		"vite": "^2.3.4"
 	}
 }
